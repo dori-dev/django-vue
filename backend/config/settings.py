@@ -34,7 +34,9 @@ THIRD_PARTY_APPS = [
     'rest_framework'
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'blog.apps.BlogConfig',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

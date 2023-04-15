@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'blog.apps.BlogConfig',
+    'api.apps.ApiConfig',
 ]
 
 INSTALLED_APPS = [

@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+from blog import models
+from api import serializers
+
+
+class ArticleList(generics.ListCreateAPIView):
+    queryset = models.Article.objects.all()
+    serializer_class = serializers.ArticleSerializer

@@ -1,5 +1,9 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from blog import models
+
+User = get_user_model()
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -14,3 +18,9 @@ class ArticleSerializer(serializers.ModelSerializer):
             'status',
             'published',
         ]
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'

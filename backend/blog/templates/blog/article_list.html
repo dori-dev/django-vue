@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article List</title>
+</head>
+<body>
+  {% for article in object_list %}
+    <article>
+      <h2>{{ article.title }}</h2>
+      <small>{{ article.author }}</small>
+      <small>{{ article.published }}</small>
+      <p>{{ article.content }}</p>
+      <hr>
+    </article>
+  {% empty %}
+    <h1>
+      There is no article here.
+    </h1>
+  {% endfor %}
+</body>
+</html>

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+from blog import models
+
+
+class ArticleList(generic.ListView):
+    def get_queryset(self):
+        return models.Article.objects.filter(status="P")

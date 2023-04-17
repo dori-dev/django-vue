@@ -1,5 +1,9 @@
 from django.contrib.auth import get_user_model
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.request import Request
 
 from blog import models
 from api import serializers, permissions
@@ -40,3 +44,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         permissions.IsItSelf |
         permissions.IsStaffReadOnly
     ]
+
+
+class RevokeToken(APIView):
+    permission_classes = [
+        permissions.IsSuperUser |
+        IsAuthenticated
+    ]
+
+    def delete(self, request: Request):
+        request.auth.delete()
+        return Response(status=204)

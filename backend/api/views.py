@@ -10,6 +10,9 @@ User = get_user_model()
 class ArticleList(generics.ListCreateAPIView):
     queryset = models.Article.objects.all()
     serializer_class = serializers.ArticleSerializer
+    ordering = [
+        '-published',
+    ]
     filterset_fields = [
         "status",
         "author",
@@ -21,6 +24,11 @@ class ArticleList(generics.ListCreateAPIView):
         "author__username",
         "author__first_name",
         "author__last_name",
+    ]
+    ordering_fields = [
+        "published",
+        "title",
+        "status",
     ]
 
 

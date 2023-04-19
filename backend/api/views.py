@@ -42,6 +42,11 @@ class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
     ]
 
 
+class AuthorDetail(generics.RetrieveAPIView):
+    queryset = User.objects.filter(is_staff=True)
+    serializer_class = serializers.AuthorSerializer
+
+
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer

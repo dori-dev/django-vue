@@ -6,7 +6,20 @@ from blog import models
 User = get_user_model()
 
 
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+        ]
+
+
 class ArticleSerializer(serializers.ModelSerializer):
+    author = serializers.HyperlinkedIdentityField(view_name='api:author')
+
     class Meta:
         model = models.Article
         fields = [
@@ -18,6 +31,18 @@ class ArticleSerializer(serializers.ModelSerializer):
             'status',
             'published',
         ]
+
+    def validate_title(self, value):
+        blocked_list = [
+            'php',
+            'laravel',
+            'java',
+        ]
+        for word in blocked_list:
+            if word.lower() in value:
+                raise serializers.ValidationError(
+                    f"You are not allowed to use the name {word}"
+                )
 
 
 class UserSerializer(serializers.ModelSerializer):

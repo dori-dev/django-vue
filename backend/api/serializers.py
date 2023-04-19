@@ -18,7 +18,12 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    author = serializers.HyperlinkedIdentityField(view_name='api:author')
+    # author = serializers.HyperlinkedIdentityField(view_name='api:author')
+    # author = serializers.CharField(
+    #     source='author.username',
+    #     read_only=True,
+    # )
+    author = serializers.SerializerMethodField('get_author')
 
     class Meta:
         model = models.Article
@@ -32,6 +37,9 @@ class ArticleSerializer(serializers.ModelSerializer):
             'published',
         ]
 
+    def get_author(self, obj):
+        return obj.author.username
+
     def validate_title(self, value):
         blocked_list = [
             'php',
@@ -41,7 +49,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         for word in blocked_list:
             if word.lower() in value:
                 raise serializers.ValidationError(
-                    f"You are not allowed to use the name {word}"
+                    f'You are not allowed to use the name {word}'
                 )
 
 

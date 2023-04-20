@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "../store/index";
 import HomeView from "../views/HomeView.vue";
 import About from "../views/AboutView.vue";
 import Profile from "../views/ProfileView.vue";
@@ -20,22 +21,49 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+    meta: {
+      loginRequired: true,
+    },
   },
   {
     path: "/login",
     name: "login",
     component: Login,
+    meta: {
+      loginRedirect: true,
+    },
   },
   {
     path: "/logout",
     name: "logout",
     component: Logout,
+    meta: {
+      loginRequired: true,
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.loginRequired)) {
+    if (store.state.isAuthenticated) {
+      next();
+    } else {
+      next("/login");
+    }
+  } else if (to.matched.some((record) => record.meta.loginRedirect)) {
+    if (store.state.isAuthenticated) {
+      next("/profile");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import About from "../views/AboutView.vue";
 import Profile from "../views/ProfileView.vue";
+import Login from "../views/Login.vue";
+import Logout from "../views/Logout.vue";
 
 const routes = [
   {
@@ -18,6 +20,16 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/logout",
+    name: "logout",
+    component: Logout,
   },
 ];
 

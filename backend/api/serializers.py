@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from drf_dynamic_fields import DynamicFieldsMixin
 
 from blog import models
 
@@ -17,7 +18,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         ]
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     # author = serializers.HyperlinkedIdentityField(view_name='api:author')
     # author = serializers.CharField(
     #     source='author.username',
@@ -56,4 +57,6 @@ class ArticleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = [
+            'password',
+        ]

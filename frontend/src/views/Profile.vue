@@ -39,10 +39,7 @@ export default {
   methods: {
     getInfo() {
       axios
-        .get("/api/auth/users/me/", {
-          username: this.username,
-          password: this.password,
-        })
+        .get("/api/auth/users/me/")
         .then((response) => {
           this.profileErr = false;
           let data = response.data;

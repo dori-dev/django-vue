@@ -54,7 +54,7 @@ class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
                 )
 
 
-class UserSerializer(serializers.ModelSerializer):
+class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = [

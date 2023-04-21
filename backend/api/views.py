@@ -49,7 +49,7 @@ class AuthorDetail(generics.RetrieveAPIView):
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+    serializer_class = serializers.MyUserSerializer
     permission_classes = [
         permissions.IsSuperUser |
         permissions.IsStaffReadOnly
@@ -58,7 +58,7 @@ class UserList(generics.ListCreateAPIView):
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+    serializer_class = serializers.MyUserSerializer
     lookup_field = "username"
     permission_classes = [
         permissions.IsSuperUser |

@@ -12,7 +12,7 @@
       </div>
       <form @submit.prevent="doLogin">
         <div class="inputs mb-4">
-          <div class="group mb-3">
+          <div class="group">
             <input
               type="text"
               name="username"
@@ -29,7 +29,7 @@
               {{ usernameMsg }}
             </div>
           </div>
-          <div class="group">
+          <div class="group mt-3">
             <input
               type="password"
               name="password"
@@ -46,7 +46,7 @@
               {{ passwordMsg }}
             </div>
           </div>
-          <a class="create-btn text-start w-100 me-3"> Forgot Password? </a>
+          <a class="create-btn text-start w-100"> Forgot Password? </a>
         </div>
         <button class="btn btn-primary w-75 mt-3">Login</button>
       </form>

@@ -12,7 +12,7 @@
       </div>
       <form @submit.prevent="doRegister">
         <div class="inputs mb-4">
-          <div class="group mb-3">
+          <div class="group">
             <input
               type="text"
               name="username"
@@ -29,7 +29,7 @@
               {{ usernameMsg }}
             </div>
           </div>
-          <div class="group mb-3">
+          <div class="group mt-3">
             <input
               type="password"
               name="password"
@@ -46,7 +46,7 @@
               {{ passwordMsg }}
             </div>
           </div>
-          <div class="group">
+          <div class="group mt-3">
             <input
               type="password"
               name="password2"
@@ -74,6 +74,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Register",
   data() {
@@ -132,8 +134,40 @@ export default {
       }
       // register
       if (!this.usernameErr & !this.passwordErr & !this.password2Err) {
-        this.$store.commit("login", `${this.username}:${this.password}`);
-        this.$router.push("/profile");
+        axios
+          .post("/api/auth/users/", {
+            username: this.username,
+            password: this.password,
+          })
+          .then((response) => {
+            if (response.status === 201) {
+              axios
+                .post("/api/auth/token/login/", {
+                  username: this.username,
+                  password: this.password,
+                })
+                .then((response) => {
+                  if (response.status === 200) {
+                    let token = response.data.auth_token;
+                    this.$store.commit("login", token);
+                    this.$router.push("/profile");
+                  }
+                })
+                .catch((error) => {
+                  this.$router.push("/login");
+                });
+            }
+          })
+          .catch((error) => {
+            let data = error.response.data;
+            if (data.username) {
+              this.usernameErr = true;
+              this.usernameMsg = data.username.join(" ");
+            } else if (data.password) {
+              this.passwordErr = true;
+              this.passwordMsg = data.password.join(" ");
+            }
+          });
       }
     },
   },

@@ -47,7 +47,7 @@
     <div class="col-md-8 col-12">
       <form @submit.prevent="updateArticle">
         <div class="inputs mb-4">
-          <div class="group mb-3">
+          <div class="group">
             <input
               type="text"
               name="title"
@@ -66,7 +66,7 @@
               {{ titleMsg }}
             </div>
           </div>
-          <div class="group mb-3">
+          <div class="group mt-3">
             <input
               type="text"
               name="description"
@@ -87,7 +87,7 @@
               {{ descriptionMsg }}
             </div>
           </div>
-          <div class="group">
+          <div class="group mt-3">
             <textarea
               class="input form-control"
               name="content"

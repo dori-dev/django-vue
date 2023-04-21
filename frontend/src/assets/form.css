@@ -34,7 +34,7 @@ h2 {
   font-size: 16px;
   width: 100%;
   padding: 0 15px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   z-index: 2 !important;
   background-color: transparent !important;
   outline: none;

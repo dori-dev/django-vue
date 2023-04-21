@@ -24,7 +24,7 @@ class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     #     source='author.username',
     #     read_only=True,
     # )
-    author = serializers.SerializerMethodField('get_author')
+    # author = serializers.SerializerMethodField('get_author')
 
     class Meta:
         model = models.Article
@@ -52,6 +52,7 @@ class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     f'You are not allowed to use the name {word}'
                 )
+        return value
 
 
 class MyUserSerializer(serializers.ModelSerializer):

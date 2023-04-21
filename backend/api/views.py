@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 from blog import models
 from api import serializers, permissions
@@ -30,6 +31,20 @@ class ArticleList(generics.ListCreateAPIView):
         "title",
         "status",
     ]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        data = serializer.initial_data.copy()
+        data['author'] = self.request.user.pk
+        serializer.initial_data = data
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED,
+            headers=headers
+        )
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):

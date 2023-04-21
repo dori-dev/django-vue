@@ -19,6 +19,8 @@ class Article(models.Model):
     slug = models.SlugField(
         max_length=8,
         unique=True,
+        null=True,
+        blank=True,
     )
     author = models.ForeignKey(
         UserModel,
@@ -42,7 +44,8 @@ class Article(models.Model):
     )
 
     def save(self, *args, **kwargs) -> None:
-        self.title = self.title.title()
+        if self.title:
+            self.title = self.title.title()
         if not self.slug:
             slug = self._random_slug(8)
             while Article.objects.filter(slug=slug).exists():

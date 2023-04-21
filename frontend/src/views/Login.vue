@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
@@ -101,8 +103,24 @@ export default {
       }
       // login
       if (!this.usernameErr & !this.passwordErr) {
-        this.$store.commit("login", `${this.username}:${this.password}`);
-        this.$router.push("/profile");
+        axios
+          .post("/api/auth/token/login/", {
+            username: this.username,
+            password: this.password,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              let token = response.data.auth_token;
+              this.$store.commit("login", token);
+              this.$router.push("/profile");
+            }
+          })
+          .catch((error) => {
+            this.usernameErr = true;
+            this.passwordErr = true;
+            this.usernameMsg = "";
+            this.passwordMsg = "Username or password is incorrect.";
+          });
       }
     },
   },

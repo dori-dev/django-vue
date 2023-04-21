@@ -7,6 +7,7 @@ import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import Detail from "../views/Detail.vue";
+import Add from "../views/Add.vue";
 
 const routes = [
   {
@@ -28,6 +29,14 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+    meta: {
+      loginRequired: true,
+    },
+  },
+  {
+    path: "/add",
+    name: "add",
+    component: Add,
     meta: {
       loginRequired: true,
     },

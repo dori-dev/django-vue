@@ -15,20 +15,34 @@
               type="text"
               name="username"
               id="username"
-              class="input"
+              class="input form-control"
               v-model="username"
+              :class="{
+                'is-invalid': usernameErr === true,
+                'is-valid': usernameErr === false,
+              }"
             />
             <label for="username" class="input-label username">Username</label>
+            <div class="invalid-feedback text-start" v-if="usernameErr">
+              {{ usernameMsg }}
+            </div>
           </div>
           <div class="group">
             <input
               type="password"
               name="password"
               id="password"
-              class="input"
+              class="input form-control"
               v-model="password"
+              :class="{
+                'is-invalid': passwordErr === true,
+                'is-valid': passwordErr === false,
+              }"
             />
             <label for="password" class="input-label password">Password</label>
+            <div class="invalid-feedback text-start" v-if="passwordErr">
+              {{ passwordMsg }}
+            </div>
           </div>
           <a class="create-btn text-start w-100 me-3"> Forgot Password? </a>
         </div>
@@ -45,6 +59,10 @@ export default {
     return {
       username: "",
       password: "",
+      usernameErr: null,
+      passwordErr: null,
+      usernameMsg: "",
+      passwordMsg: "",
     };
   },
   mounted() {
@@ -61,10 +79,29 @@ export default {
   },
   methods: {
     doLogin() {
-      console.log(this.username);
-      console.log(this.password);
-      // this.$store.commit("login", "abc123");
-      // this.$router.push("/profile");
+      // username validation
+      this.usernameErr = false;
+      if (this.username.length <= 3) {
+        this.usernameErr = true;
+        this.usernameMsg = "Username must be more than 3 characters.";
+        if (this.username.length == 0) {
+          this.usernameMsg = "Username is required.";
+        }
+      }
+      // password validation
+      this.passwordErr = false;
+      if (this.password.length < 8) {
+        this.passwordErr = true;
+        this.passwordMsg = "Password must contain at least 8 characters.";
+        if (this.password.length == 0) {
+          this.passwordMsg = "Password is required.";
+        }
+      }
+      // login
+      if (!this.usernameErr & !this.passwordErr) {
+        this.$store.commit("login", `${this.username}:${this.password}`);
+        this.$router.push("/profile");
+      }
     },
   },
 };
@@ -109,12 +146,16 @@ input {
   height: 55px;
   padding: 0 15px;
   margin-bottom: 10px;
-  position: relative;
-  z-index: 2;
-  background-color: transparent;
+  z-index: 2 !important;
+  background-color: transparent !important;
   outline: none;
   border-radius: 5px;
-  position: relative;
+  position: relative !important;
+  transition: border-color 0.3s;
+}
+input:focus {
+  border: 2px solid #1a73e8 !important;
+  box-shadow: none !important;
 }
 .inputs .group {
   position: relative;
@@ -163,9 +204,6 @@ input[type="password"]:target ~ .input-label.password {
   font-size: 13px;
   background-color: rgb(255, 255, 255);
   z-index: 2;
-}
-.input:focus {
-  border: 2px solid #1a73e8;
 }
 .link-btn {
   margin-bottom: 2rem;

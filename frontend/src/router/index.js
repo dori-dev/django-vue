@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from "../store/index";
-import HomeView from "../views/HomeView.vue";
-import About from "../views/AboutView.vue";
-import Profile from "../views/ProfileView.vue";
+import Home from "../views/Home.vue";
+import About from "../views/About.vue";
+import Profile from "../views/Profile.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: Home,
   },
   {
     path: "/article/:slug",

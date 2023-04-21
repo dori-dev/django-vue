@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "HomeView",
+  name: "Home",
   data() {
     let articles = localStorage.getItem("articles");
     articles = JSON.parse(articles);

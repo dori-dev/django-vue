@@ -1,18 +1,51 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home text-start">
+    <h1>Home</h1>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
+    <div class="mb-5 lead">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit dolorem
+      excepturi eum, qui magnam molestias accusamus ipsam eos pariatur debitis,
+      omnis distinctio, odit similique facilis fugiat aut quos quidem ab?
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  name: "HomeView",
+};
 </script>

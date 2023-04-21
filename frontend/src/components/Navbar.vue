@@ -187,11 +187,6 @@ a {
 .navbar-primary-menu li a:hover svg {
   color: orchid;
 }
-.main-content {
-  margin-top: 60px;
-  margin-left: 200px;
-  padding: 20px;
-}
 .collapsed + .main-content {
   margin-left: 60px;
 }

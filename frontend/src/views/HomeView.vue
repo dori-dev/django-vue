@@ -2,14 +2,14 @@
   <div class="home text-start">
     <h1 class="mb-4 text-center">Home</h1>
     <article v-for="article in articles">
-      <a :href="`/article/${article.slug}`">
+      <router-link :to="`/article/${article.slug}`">
         <h3>
           {{ article.title }}
         </h3>
-      </a>
+      </router-link>
       <div>
         {{ article.description }}
-        <a :href="`/article/${article.slug}`">More...</a>
+        <router-link :to="`/article/${article.slug}`">More...</router-link>
       </div>
       <hr />
     </article>

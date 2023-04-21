@@ -14,17 +14,29 @@
       <hr />
     </article>
   </div>
+  <div class="alert alert-warning" v-if="!articles.length">
+    There is not any articles.
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Home",
   data() {
-    let articles = localStorage.getItem("articles");
-    articles = JSON.parse(articles);
     return {
-      articles: articles,
+      articles: [],
     };
+  },
+  mounted() {
+    axios
+      .get("/api/articles/")
+      .then((response) => {
+        this.articles = response.data.results;
+      })
+      .catch((error) => {
+        this.articles = [];
+      });
   },
 };
 </script>

@@ -5,6 +5,7 @@ import About from "../views/AboutView.vue";
 import Profile from "../views/ProfileView.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
+import Register from "../views/Register.vue";
 
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: {
+      loginRedirect: true,
+    },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
     meta: {
       loginRedirect: true,
     },

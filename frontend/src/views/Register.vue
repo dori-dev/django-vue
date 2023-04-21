@@ -2,13 +2,15 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-8 col-12">
       <div class="top-content">
-        <h2>Login</h2>
+        <h2>Register</h2>
         <p class="heading">
-          New user?
-          <router-link to="/register" class="create-btn d-inline-block">Register</router-link>
+          Have an account?
+          <RouterLink to="/login" class="create-btn d-inline-block"
+            >Login</RouterLink
+          >
         </p>
       </div>
-      <form @submit.prevent="doLogin">
+      <form @submit.prevent="doRegister">
         <div class="inputs mb-4">
           <div class="group mb-3">
             <input
@@ -27,7 +29,7 @@
               {{ usernameMsg }}
             </div>
           </div>
-          <div class="group">
+          <div class="group mb-3">
             <input
               type="password"
               name="password"
@@ -44,9 +46,28 @@
               {{ passwordMsg }}
             </div>
           </div>
+          <div class="group">
+            <input
+              type="password"
+              name="password2"
+              id="password2"
+              class="input form-control"
+              v-model="password2"
+              :class="{
+                'is-invalid': password2Err === true,
+                'is-valid': password2Err === false,
+              }"
+            />
+            <label for="password2" class="input-label password"
+              >Confirm Password</label
+            >
+            <div class="invalid-feedback text-start" v-if="password2Err">
+              {{ password2Msg }}
+            </div>
+          </div>
           <a class="create-btn text-start w-100 me-3"> Forgot Password? </a>
         </div>
-        <button class="btn btn-primary w-75 mt-3">Login</button>
+        <button class="btn btn-primary w-75 mt-3">Create Account</button>
       </form>
     </div>
   </div>
@@ -54,15 +75,18 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
       username: "",
       password: "",
+      password2: "",
       usernameErr: null,
       passwordErr: null,
+      password2Err: null,
       usernameMsg: "",
       passwordMsg: "",
+      password2Msg: "",
     };
   },
   mounted() {
@@ -78,7 +102,7 @@ export default {
     });
   },
   methods: {
-    doLogin() {
+    doRegister() {
       // username validation
       this.usernameErr = false;
       if (this.username.length <= 3) {
@@ -97,8 +121,17 @@ export default {
           this.passwordMsg = "Password is required.";
         }
       }
-      // login
-      if (!this.usernameErr & !this.passwordErr) {
+      // password2 validation
+      this.password2Err = false;
+      if (this.password2.length == 0) {
+        this.password2Err = true;
+        this.password2Msg = "Confirm Password is required.";
+      } else if (this.password !== this.password2) {
+        this.password2Err = true;
+        this.password2Msg = "Passwords do not match.";
+      }
+      // register
+      if (!this.usernameErr & !this.passwordErr & !this.password2Err) {
         this.$store.commit("login", `${this.username}:${this.password}`);
         this.$router.push("/profile");
       }

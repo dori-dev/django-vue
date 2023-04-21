@@ -24,7 +24,7 @@
           </svg>
           Edit
         </button>
-        <button class="btn btn-danger btn-sm col-5">
+        <button class="btn btn-danger btn-sm col-5" @click="removeArticle">
           <svg
             class="btn-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -201,6 +201,24 @@ export default {
         this.edit = false;
         this.$router.push(`/article/${article.slug}`);
       }
+    },
+    removeArticle() {
+      let articles = localStorage.getItem("articles");
+      if (articles === null) {
+        localStorage.setItem("articles", "[]");
+        articles = localStorage.getItem("articles");
+      }
+      articles = JSON.parse(articles);
+      // find
+      let index = articles.findIndex(
+        (article) => article.slug == this.$route.params.slug
+      );
+      // remove
+      articles.splice(index, 1);
+      let db = JSON.stringify(articles);
+      localStorage.setItem("articles", db);
+      // redirect
+      this.$router.push(`/`);
     },
   },
 };

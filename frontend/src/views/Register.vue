@@ -90,7 +90,7 @@ export default {
     };
   },
   mounted() {
-    let inputs = document.querySelectorAll("input");
+    let inputs = document.querySelectorAll(".input");
     inputs.forEach((input) => {
       input.addEventListener("input", (e) => {
         if (input.value.length) {
@@ -141,122 +141,5 @@ export default {
 </script>
 
 <style>
-* {
-  margin: 0%;
-  padding: 0%;
-  box-sizing: border-box;
-}
-body {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-a {
-  text-decoration: none;
-  color: #1a73e8;
-  display: block;
-  font-size: 14px;
-}
-.top-content {
-  text-align: center;
-}
-img {
-  width: 80px;
-  margin: 10px 0;
-}
-h2 {
-  font-size: 20px;
-  font-weight: 100;
-  margin-bottom: 10px;
-}
-.heading {
-  margin-bottom: 30px;
-}
-input {
-  display: block;
-  border: 1px solid rgb(228, 228, 228);
-  font-size: 16px;
-  width: 100%;
-  height: 55px;
-  padding: 0 15px;
-  margin-bottom: 10px;
-  z-index: 2 !important;
-  background-color: transparent !important;
-  outline: none;
-  border-radius: 5px;
-  position: relative !important;
-  transition: border-color 0.3s;
-}
-input:focus {
-  border: 2px solid #1a73e8 !important;
-  box-shadow: none !important;
-}
-.inputs .group {
-  position: relative;
-}
-.input-label {
-  position: absolute;
-  top: 15px;
-  font-size: 1.1rem;
-  left: 14px;
-  color: rgb(122, 122, 122);
-  font-weight: 100;
-  transition: 0.1s ease;
-  background-color: white;
-  padding: 0 5px;
-}
-.fill-input-label {
-  top: -7px;
-  font-size: 13px;
-  background-color: rgb(255, 255, 255);
-  z-index: 2;
-}
-input[type="text"]:focus ~ .input-label.username {
-  top: -7px;
-  color: #1864c9;
-  font-size: 13px;
-  background-color: rgb(255, 255, 255);
-  z-index: 2;
-}
-input[type="text"]:target ~ .input-label.username {
-  top: -7px;
-  color: #1864c9;
-  font-size: 13px;
-  background-color: rgb(255, 255, 255);
-  z-index: 2;
-}
-input[type="password"]:focus ~ .input-label.password {
-  top: -7px;
-  color: #1864c9;
-  font-size: 13px;
-  background-color: rgb(255, 255, 255);
-  z-index: 2;
-}
-input[type="password"]:target ~ .input-label.password {
-  top: -7px;
-  color: #1864c9;
-  font-size: 13px;
-  background-color: rgb(255, 255, 255);
-  z-index: 2;
-}
-.link-btn {
-  margin-bottom: 2rem;
-}
-.color {
-  color: rgb(90, 90, 90);
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-.btn-group {
-  display: flex;
-  justify-content: space-between;
-}
-.create-btn {
-  border: none;
-  background-color: transparent;
-  color: #1a73e8;
-  font-weight: bold;
-  cursor: pointer;
-  height: 35px;
-  padding: 10px 5px;
-}
+@import "../assets/form.css";
 </style>

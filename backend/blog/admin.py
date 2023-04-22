@@ -15,6 +15,7 @@ class BlogAdmin(admin.ModelAdmin):
     ]
     search_fields = [
         'title',
+        'description',
         'content',
         'author__username',
         'slug',

@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics, status
-from rest_framework.response import Response
+from rest_framework import generics
 
 from blog import models
 from api import serializers, permissions
@@ -32,20 +31,8 @@ class ArticleList(generics.ListCreateAPIView):
         "status",
     ]
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer, self.request.user.pk)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED,
-            headers=headers
-        )
-
-    def perform_create(self, serializer, author_pk):
-        author = User.objects.get(pk=author_pk)
-        serializer.save(author=author)
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):

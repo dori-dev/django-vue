@@ -10,6 +10,13 @@
           Write by <span class="badge bg-primary">{{ article.author }}</span>
         </div>
         <div
+          class="alert alert-warning mt-3"
+          style="width: fit-content"
+          v-if="deleteError"
+        >
+          Something wen't wrong to delete this article.
+        </div>
+        <div
           class="col-md-5 col-12 d-flex justify-content-start mt-3"
           v-if="$store.state.isAuthenticated"
         >
@@ -142,6 +149,7 @@ export default {
       edit: false,
       articleError: false,
       updateError: false,
+      deleteError: false,
     };
   },
   mounted() {
@@ -216,22 +224,14 @@ export default {
       }
     },
     removeArticle() {
-      let articles = localStorage.getItem("articles");
-      if (articles === null) {
-        localStorage.setItem("articles", "[]");
-        articles = localStorage.getItem("articles");
-      }
-      articles = JSON.parse(articles);
-      // find
-      let index = articles.findIndex(
-        (article) => article.slug == this.$route.params.slug
-      );
-      // remove
-      articles.splice(index, 1);
-      let db = JSON.stringify(articles);
-      localStorage.setItem("articles", db);
-      // redirect
-      this.$router.push(`/`);
+      axios
+        .delete(`/api/article/${this.$route.params.slug}/`)
+        .then((response) => {
+          this.$router.push(`/`);
+        })
+        .catch((error) => {
+          this.deleteError = true;
+        });
     },
   },
 };

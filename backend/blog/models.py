@@ -27,6 +27,11 @@ class Article(models.Model):
         on_delete=models.CASCADE,
         related_name='articles',
     )
+    description = models.CharField(
+        max_length=512,
+        null=True,
+        blank=True,
+    )
     content = models.TextField()
     published = models.DateTimeField(
         default=now,

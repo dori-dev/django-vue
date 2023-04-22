@@ -14,7 +14,7 @@
       <hr />
     </article>
   </div>
-  <div class="alert alert-warning" v-if="!articles.length">
+  <div class="alert alert-warning" v-if="emptyArticles">
     There is not any articles.
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       articles: [],
+      emptyArticles: false,
     };
   },
   mounted() {
@@ -36,6 +37,7 @@ export default {
       })
       .catch((error) => {
         this.articles = [];
+        this.emptyArticles = true;
       });
   },
 };

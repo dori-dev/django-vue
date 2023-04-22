@@ -145,6 +145,7 @@ export default {
       .get(`/api/article/${this.$route.params.slug}/`)
       .then((response) => {
         this.article = response.data;
+        console.log(this.article);
         this.title = this.article.title;
         this.description = this.article.description;
         this.content = this.article.content;

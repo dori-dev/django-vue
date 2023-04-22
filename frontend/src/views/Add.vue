@@ -10,6 +10,9 @@
           >
         </p>
       </div>
+      <div class="alert alert-danger mb-4 text-start" v-if="error">
+        Something wen't wrong to create the article.
+      </div>
       <form @submit.prevent="createArticle">
         <div class="inputs mb-4">
           <div class="group">
@@ -74,6 +77,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Add",
   data() {
@@ -87,6 +92,7 @@ export default {
       titleMsg: "",
       descriptionMsg: "",
       contentMsg: "",
+      error: false,
     };
   },
   mounted() {
@@ -103,20 +109,6 @@ export default {
   },
   methods: {
     createArticle() {
-      const genSlug = (length) => {
-        let result = "";
-        const characters =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        const charactersLength = characters.length;
-        let counter = 0;
-        while (counter < length) {
-          result += characters.charAt(
-            Math.floor(Math.random() * charactersLength)
-          );
-          counter += 1;
-        }
-        return result;
-      };
       // title validation
       this.titleErr = false;
       if (this.title.length === 0) {
@@ -139,21 +131,26 @@ export default {
       if (!this.titleErr & !this.descriptionErr & !this.contentErr) {
         let article = {
           title: this.title,
-          slug: genSlug(8),
           description: this.description,
           content: this.content,
-          author: "salar",
         };
-        let articles = localStorage.getItem("articles");
-        if (articles === null) {
-          localStorage.setItem("articles", "[]");
-          articles = localStorage.getItem("articles");
-        }
-        articles = JSON.parse(articles);
-        articles.push(article);
-        let db = JSON.stringify(articles);
-        localStorage.setItem("articles", db);
-        this.$router.push(`/article/${article.slug}`);
+        axios
+          .post("/api/articles/", article)
+          .then((response) => {
+            if (response.status === 201) {
+              let slug = response.data.slug;
+              if (slug) {
+                this.$router.push(`/article/${slug}`);
+              } else {
+                this.error = true;
+              }
+            } else {
+              this.error = true;
+            }
+          })
+          .catch((error) => {
+            this.error = true;
+          });
       }
     },
   },

@@ -20,10 +20,10 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     # author = serializers.HyperlinkedIdentityField(view_name='api:author')
-    # author = serializers.CharField(
-    #     source='author.username',
-    #     read_only=True,
-    # )
+    author = serializers.CharField(
+        source='author.username',
+        read_only=True,
+    )
     # author = serializers.SerializerMethodField('get_author')
 
     class Meta:
@@ -33,6 +33,7 @@ class ArticleSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
             'title',
             'slug',
             'author',
+            'description',
             'content',
             'status',
             'published',

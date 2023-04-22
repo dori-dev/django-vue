@@ -26,12 +26,14 @@ export default createStore({
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Token ${token}`;
         axios
-          .get("/api/auth/users/me/")
+          .get("http://127.0.0.1:8000/api/auth/users/me/")
           .then((response) => {
             context.commit("login", token);
           })
           .catch((error) => {
-            context.commit("logout");
+            if (error.response.data) {
+              context.commit("logout");
+            }
           });
       } else {
         context.commit("logout");

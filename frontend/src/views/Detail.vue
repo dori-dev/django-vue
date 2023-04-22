@@ -18,7 +18,7 @@
         </div>
         <div
           class="col-md-5 col-12 d-flex justify-content-start mt-3"
-          v-if="$store.state.isAuthenticated"
+          v-if="$store.state.isAuthenticated & canEdit"
         >
           <button class="btn btn-primary btn-sm me-3 col-5" @click="changeEdit">
             <svg
@@ -137,6 +137,7 @@ export default {
   data() {
     return {
       article: {},
+      canEdit: false,
       title: "",
       description: "",
       content: "",
@@ -160,12 +161,27 @@ export default {
         this.title = this.article.title;
         this.description = this.article.description;
         this.content = this.article.content;
+        this.setPermission();
       })
       .catch((error) => {
         this.articleError = true;
       });
   },
   methods: {
+    setPermission() {
+      axios
+        .get("/api/auth/users/me/")
+        .then((response) => {
+          if (this.article.author === response.data.username) {
+            this.canEdit = true;
+          } else {
+            this.canEdit = false;
+          }
+        })
+        .catch((error) => {
+          this.canEdit = false;
+        });
+    },
     setInputEvent() {
       let inputs = document.querySelectorAll(".input");
       inputs.forEach((input) => {

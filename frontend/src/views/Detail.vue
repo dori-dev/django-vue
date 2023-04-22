@@ -46,6 +46,9 @@
     </div>
     <div class="row d-flex justify-content-start" v-if="edit">
       <div class="col-md-8 col-12">
+        <div class="alert alert-warning text-start" v-if="updateError">
+          Something wen't wrong to update article.
+        </div>
         <form @submit.prevent="updateArticle">
           <div class="inputs mb-4">
             <div class="group">
@@ -127,7 +130,6 @@ export default {
   data() {
     return {
       article: {},
-      articleError: false,
       title: "",
       description: "",
       content: "",
@@ -138,6 +140,8 @@ export default {
       descriptionMsg: "",
       contentMsg: "",
       edit: false,
+      articleError: false,
+      updateError: false,
     };
   },
   mounted() {
@@ -145,7 +149,6 @@ export default {
       .get(`/api/article/${this.$route.params.slug}/`)
       .then((response) => {
         this.article = response.data;
-        console.log(this.article);
         this.title = this.article.title;
         this.description = this.article.description;
         this.content = this.article.content;
@@ -194,29 +197,22 @@ export default {
       }
       // add
       if (!this.titleErr & !this.descriptionErr & !this.contentErr) {
-        // update
+        // set values
         let article = this.article;
         article.title = this.title;
         article.description = this.description;
         article.content = this.content;
-        // get articles
-        let articles = localStorage.getItem("articles");
-        if (articles === null) {
-          localStorage.setItem("articles", "[]");
-          articles = localStorage.getItem("articles");
-        }
-        articles = JSON.parse(articles);
-        // find
-        let index = articles.findIndex(
-          (article) => article.slug == this.$route.params.slug
-        );
-        // set new article
-        articles[index] = article;
-        let db = JSON.stringify(articles);
-        localStorage.setItem("articles", db);
-        // change page
-        this.edit = false;
-        this.$router.push(`/article/${article.slug}`);
+        // send data
+        axios
+          .put(`/api/article/${this.$route.params.slug}/`, article)
+          .then((response) => {
+            // change page
+            this.edit = false;
+            this.$router.push(`/article/${article.slug}`);
+          })
+          .catch((error) => {
+            this.updateError = true;
+          });
       }
     },
     removeArticle() {
